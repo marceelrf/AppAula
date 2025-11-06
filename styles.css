@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Trirong');
+@import url('https://fonts.googleapis.com/css?family=Audiowide');
+
+h1 {
+  color: red;
+  text-align: center;
+  font-family: "Trirong", serif;
+}
+
+h2 {
+  color: #00BEED;
+  text-align: left;
+  font-family: "Trirong", serif;
+}
+
+body {
+  font-family: 'Trirong', serif;;
+}
+
+
+a {
+  color: red;
+  font-weight: bold;
+  font-family: 'Audiowide', serif;
+}

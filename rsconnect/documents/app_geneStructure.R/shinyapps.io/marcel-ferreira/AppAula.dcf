@@ -1,0 +1,14 @@
+name: AppAula
+title: AppAula
+username:
+account: marcel-ferreira
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 15990226
+bundleId: 11141868
+url: https://marcel-ferreira.shinyapps.io/AppAula/
+when: 1762455891.9457
+lastSyncTime: 1762455891.9457
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData|aplicativo_do_zero.R|app.R|app_grafico.R|app_grafico_fileinput.R|dnase_tab.xlsx|hex_marshalltools.png

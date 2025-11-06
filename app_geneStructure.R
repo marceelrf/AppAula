@@ -3,7 +3,6 @@ library(bslib)
 library(bsicons)
 library(tidyverse)
 library(plotly)
-library(markdown)
 
 link_shiny <- tags$a(
   shiny::icon("github"), "Shiny",
@@ -38,9 +37,9 @@ analysis_page <- div(
         textAreaInput(inputId = "exons_info",
                       label = "Enter with your exons locations:",
                       placeholder = "chr1;10;100;exon1\nchr1;200;777;exon2\nchr1;1111;1234;exon3")
-      ),
+        ),
       plotlyOutput(outputId = "grafico")
-    )
+      )
   )
 )
 
@@ -93,9 +92,9 @@ server <- function(input, output, session) {
     exons_df$End <- as.numeric(exons_df$End)
 
     p <- ggplot(data = tibble(Start = gene_start,
-                              End = gene_end,
-                              Name = gene_name),
-                aes(xmin = Start, xmax = End, y = Name)) +
+                         End = gene_end,
+                         Name = gene_name),
+           aes(xmin = Start, xmax = End, y = Name)) +
       geom_linerange(linewidth = 2.5,
                      color = "navy") +
       labs(x = gene_chr,
