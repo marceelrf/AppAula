@@ -66,6 +66,8 @@ server <- function(input, output, session) {
 
   output$grafico <- renderPlotly({
 
+    req(input$gene_info, input$exons_info) # Essa linha corrigiu o erro!
+
     gene <- input$gene_info
 
 
@@ -103,7 +105,12 @@ server <- function(input, output, session) {
       geom_rect(data = exons_df,aes(ymin = .9, ymax = 1.1),
                 fill = "navy", col = "grey")
 
-    ggplotly(p)
+
+
+    # if(is.null(input$gene_info && input$exons_info)){
+    #   return(NULL)
+    # }
+
   })
 
 }
