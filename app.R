@@ -106,11 +106,6 @@ server <- function(input, output, session) {
                 fill = "navy", col = "grey")
 
 
-
-    # if(is.null(input$gene_info && input$exons_info)){
-    #   return(NULL)
-    # }
-
   })
 
 }
