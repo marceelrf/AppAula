@@ -46,7 +46,8 @@ analysis_page <- div(
 
 
 ui <- page_navbar(
-  title = "geneStructure",
+  title = tagList("geneStructure",
+          HTML(readLines("www/dna.svg"))),
   id = "painel_principal",
   nav_panel(title = tagList("Main",bs_icon("house-heart")), main_page),
   nav_panel(title = tagList("Analise",bs_icon("bar-chart")), analysis_page),
@@ -64,10 +65,8 @@ ui <- page_navbar(
 
 server <- function(input, output, session) {
 
-  output$grafico <- renderPlotly({
 
-    req(input$gene_info, input$exons_info) # Essa linha corrigiu o erro!
-
+  genes_list_react <- reactive({
     gene <- input$gene_info
 
 
@@ -79,6 +78,13 @@ server <- function(input, output, session) {
     gene_end <- as.numeric(gene_info_list[[1]][3])
     gene_name <- (gene_info_list[[1]][4])
 
+    return(list(gene_name = gene_name,
+                gene_chr = gene_chr,
+                gene_start = gene_start,
+                gene_end = gene_end))
+  })
+
+  exons_df_react <- reactive({
 
     exons <- input$exons_info
 
@@ -94,15 +100,25 @@ server <- function(input, output, session) {
     exons_df$Start <- as.numeric(exons_df$Start)
     exons_df$End <- as.numeric(exons_df$End)
 
-    p <- ggplot(data = tibble(Start = gene_start,
-                              End = gene_end,
-                              Name = gene_name),
+    return(exons_df)
+
+  })
+
+  output$grafico <- renderPlotly({
+
+    req(input$gene_info, input$exons_info) # Essa linha corrigiu o erro!
+
+
+    p <- ggplot(data = tibble(Start = genes_list_react()$gene_start,
+                              End = genes_list_react()$gene_end,
+                              Name = genes_list_react()$gene_name),
                 aes(xmin = Start, xmax = End, y = Name)) +
       geom_linerange(linewidth = 2.5,
                      color = "navy") +
-      labs(x = gene_chr,
+      labs(x = genes_list_react()$gene_chr,
            y = "Gene") +
-      geom_rect(data = exons_df,aes(ymin = .9, ymax = 1.1),
+      geom_rect(data = exons_df_react(),
+                aes(ymin = .9, ymax = 1.1),
                 fill = "navy", col = "grey")
 
 
@@ -110,4 +126,4 @@ server <- function(input, output, session) {
 
 }
 
-shinyApp(ui, server)
+shinyApp(ui, server, options = list(launch.browser = TRUE))

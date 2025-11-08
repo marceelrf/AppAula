@@ -23,3 +23,9 @@ a {
   font-weight: bold;
   font-family: 'Audiowide', serif;
 }
+
+svg {
+  height: 1em;
+  width: 1em;
+  vertical-align: -0.125em;
+}
